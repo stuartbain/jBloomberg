@@ -1,6 +1,7 @@
 package com.assylias.jbloomberg;
 
 import com.bloomberglp.blpapi.Element;
+import com.bloomberglp.blpapi.Name;
 import com.bloomberglp.blpapi.Request;
 
 public class UserEntitlementsRequestBuilder extends AbstractRequestBuilder<UserEntitlements> {
@@ -22,8 +23,8 @@ public class UserEntitlementsRequestBuilder extends AbstractRequestBuilder<UserE
 
     @Override
     protected void buildRequest(final Request request) {
-        Element userInfo = request.getElement("userInfo");
-        userInfo.setElement("uuid", uuid);
+        Element userInfo = request.getElement(Name.getName("userInfo"));
+        userInfo.setElement(Name.getName("uuid"), uuid);
     }
 
     @Override

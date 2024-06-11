@@ -14,7 +14,7 @@ public class UserEntitlementsResultParser extends AbstractResultParser<UserEntit
     @Override
     protected void parseResponseNoError(Element response, UserEntitlements result) {
         if (response.name().equals(USERENTITLEMENTS_RESPONSE)) {
-            Element returnedEids = response.getElement("eids");
+            Element returnedEids = response.getElement(Name.getName("eids"));
             int numIds = returnedEids.numValues();
             for (int i = 0; i < numIds; ++i) {
                 result.addPermission(returnedEids.getValueAsInt32(i));

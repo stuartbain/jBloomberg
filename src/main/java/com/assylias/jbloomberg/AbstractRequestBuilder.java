@@ -4,10 +4,7 @@
  */
 package com.assylias.jbloomberg;
 
-import com.bloomberglp.blpapi.Element;
-import com.bloomberglp.blpapi.Request;
-import com.bloomberglp.blpapi.Service;
-import com.bloomberglp.blpapi.Session;
+import com.bloomberglp.blpapi.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -29,18 +26,18 @@ abstract class AbstractRequestBuilder<T extends RequestResult> implements Reques
     }
 
     static void addCollectionToElement(Request request, Iterable<String> collection, String elementName) {
-        Element element = request.getElement(elementName);
+        Element element = request.getElement(Name.getName(elementName));
         for (String item : collection) {
             element.appendValue(item);
         }
     }
 
     static void addOverrides(Request request, Map<String, String> overrides) {
-        Element overridesElt = request.getElement("overrides");
+        Element overridesElt = request.getElement(Name.getName("overrides"));
         for (Map.Entry<String, String> e : overrides.entrySet()) {
             Element override = overridesElt.appendElement();
-            override.setElement("fieldId", e.getKey());
-            override.setElement("value", e.getValue());
+            override.setElement( Name.getName("fieldId"), e.getKey());
+            override.setElement(Name.getName("value"), e.getValue());
         }
     }
 

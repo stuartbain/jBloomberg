@@ -1,5 +1,6 @@
 package com.assylias.jbloomberg;
 
+import com.bloomberglp.blpapi.Name;
 import com.bloomberglp.blpapi.Request;
 import com.google.common.base.Preconditions;
 
@@ -70,13 +71,13 @@ public class InstrumentListRequestBuilder extends AbstractRequestBuilder<Instrum
 
     @Override
     protected void buildRequest(Request request) {
-        request.set("query", query);
-        request.set("maxResults", maxResults);
+        request.set(Name.getName("query"), query);
+        request.set(Name.getName("maxResults"), maxResults);
         if (yellowKeyFilter != null) {
-            request.set("yellowKeyFilter", yellowKeyFilter.filter);
+            request.set(Name.getName("yellowKeyFilter"), yellowKeyFilter.filter);
         }
         if (languageOverride != null) {
-            request.set("languageOverride", languageOverride.override);
+            request.set(Name.getName("languageOverride"), languageOverride.override);
         }
     }
 

@@ -4,6 +4,7 @@
  */
 package com.assylias.jbloomberg;
 
+import com.bloomberglp.blpapi.Name;
 import com.bloomberglp.blpapi.Request;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
@@ -251,22 +252,22 @@ public final class HistoricalRequestBuilder extends AbstractRequestBuilder<Histo
         addCollectionToElement(request, fields, "fields");
         addOverrides(request, overrides);
 
-        request.set("periodicityAdjustment", periodicityAdjustment.toString());
-        request.set("periodicitySelection", period.toString());
+        request.set(Name.getName("periodicityAdjustment"), periodicityAdjustment.toString());
+        request.set(Name.getName("periodicitySelection"), period.toString());
         if (currency != null) {
-            request.set("currency", currency.getCurrencyCode());
+            request.set(Name.getName("currency"), currency.getCurrencyCode());
         }
-        request.set("nonTradingDayFillOption", days.toString());
-        request.set("nonTradingDayFillMethod", fill.toString());
+        request.set(Name.getName("nonTradingDayFillOption"), days.toString());
+        request.set(Name.getName("nonTradingDayFillMethod"), fill.toString());
         if (points != 0) {
-            request.set("maxDataPoints", points);
+            request.set(Name.getName("maxDataPoints"), points);
         }
-        request.set("adjustmentNormal", adjNormal);
-        request.set("adjustmentAbnormal", adjAbnormal);
-        request.set("adjustmentSplit", adjSplit);
-        request.set("adjustmentFollowDPDF", usePricingDefaults);
-        request.set("startDate", startDate.format(BB_REQUEST_DATE_FORMATTER));
-        request.set("endDate", endDate.format(BB_REQUEST_DATE_FORMATTER));
+        request.set(Name.getName("adjustmentNormal"), adjNormal);
+        request.set(Name.getName("adjustmentAbnormal"), adjAbnormal);
+        request.set(Name.getName("adjustmentSplit"), adjSplit);
+        request.set(Name.getName("adjustmentFollowDPDF"), usePricingDefaults);
+        request.set(Name.getName("startDate"), startDate.format(BB_REQUEST_DATE_FORMATTER));
+        request.set(Name.getName("endDate"), endDate.format(BB_REQUEST_DATE_FORMATTER));
     }
 
     @Override

@@ -4,6 +4,7 @@
  */
 package com.assylias.jbloomberg;
 
+import com.bloomberglp.blpapi.Name;
 import com.bloomberglp.blpapi.Request;
 import java.time.OffsetDateTime;
 
@@ -126,13 +127,13 @@ public class IntradayTickRequestBuilder extends AbstractIntradayRequestBuilder<I
     @Override
     protected void buildRequest(Request request) {
         super.buildRequest(request);
-        request.append("eventTypes", getEventType());
-        request.set("includeConditionCodes", includeConditionCodes);
-        request.set("includeExchangeCodes", includeExchangeCodes);
-        request.set("includeBrokerCodes", includeBrokerCodes);
-        request.set("includeRpsCodes", includeRpsCodes);
-        request.set("includeBicMicCodes", includeBicMicCodes);
-        request.set("includeNonPlottableEvents", includeNonPlottableEvents);
+        request.append(Name.getName("eventTypes"), getEventType());
+        request.set(Name.getName("includeConditionCodes"), includeConditionCodes);
+        request.set(Name.getName("includeExchangeCodes"), includeExchangeCodes);
+        request.set(Name.getName("includeBrokerCodes"), includeBrokerCodes);
+        request.set(Name.getName("includeRpsCodes"), includeRpsCodes);
+        request.set(Name.getName("includeBicMicCodes"), includeBicMicCodes);
+        request.set(Name.getName("includeNonPlottableEvents"), includeNonPlottableEvents);
     }
 
     @Override

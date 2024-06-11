@@ -4,6 +4,7 @@
  */
 package com.assylias.jbloomberg;
 
+import com.bloomberglp.blpapi.Name;
 import com.bloomberglp.blpapi.Request;
 import com.google.common.base.Preconditions;
 import java.time.OffsetDateTime;
@@ -153,13 +154,13 @@ public final class IntradayBarRequestBuilder extends AbstractIntradayRequestBuil
     @Override
     protected void buildRequest(Request request) {
         super.buildRequest(request);
-        request.set("eventType", getEventType());
-        request.set("interval", period);
-        request.set("gapFillInitialBar", fillInitialBar);
-        request.set("adjustmentNormal", adjustNormal);
-        request.set("adjustmentAbnormal", adjustAbnormal);
-        request.set("adjustmentSplit", adjustSplit);
-        request.set("adjustmentFollowDPDF", usePricingDefaults);
+        request.set(Name.getName("eventType"), getEventType());
+        request.set(Name.getName("interval"), period);
+        request.set(Name.getName("gapFillInitialBar"), fillInitialBar);
+        request.set(Name.getName("adjustmentNormal"), adjustNormal);
+        request.set(Name.getName("adjustmentAbnormal"), adjustAbnormal);
+        request.set(Name.getName("adjustmentSplit"), adjustSplit);
+        request.set(Name.getName("adjustmentFollowDPDF"), usePricingDefaults);
     }
 
     @Override

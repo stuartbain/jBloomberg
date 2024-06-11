@@ -185,7 +185,7 @@ abstract class AbstractResultParser<T extends AbstractRequestResult> implements 
     private static <T extends AbstractRequestResult> void parseFieldExceptionsArray(final T result, final Element fieldExceptionsArray) {
         for (int i = 0; i < fieldExceptionsArray.numValues(); i++) {
             Element fieldException = fieldExceptionsArray.getValueAsElement(i);
-            String field = fieldException.getElementAsString("fieldId");
+            String field = fieldException.getElementAsString(Name.getName("fieldId"));
             Element errorInfo = fieldException.getElement(ERROR_INFO);
             logger.info("Field exception on {}: {}", field, errorInfo);
             result.addFieldError(field);

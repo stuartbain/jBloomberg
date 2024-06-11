@@ -38,8 +38,8 @@ public interface Authorisation {
     }
     @Override public Identity getIdentity(Function<Consumer<Request>, Identity> identityProvider, Supplier<String> tokenProvider) {
       return identityProvider.apply(authRequest -> {
-        authRequest.set("uuid", uuid);
-        authRequest.set("ipAddress", ipAddress);
+        authRequest.set(Name.getName("uuid"), uuid);
+        authRequest.set(Name.getName("ipAddress"), ipAddress);
       });
     }
     @Override public String toString() {
@@ -64,9 +64,9 @@ public interface Authorisation {
 
     @Override public Identity getIdentity(Function<Consumer<Request>, Identity> identityProvider, Supplier<String> tokenProvider) {
       return identityProvider.apply(authRequest -> {
-        authRequest.set("authId", authId);
-        authRequest.set("ipAddress", ipAddress);
-        if (appName != null) authRequest.set("appName", appName);
+        authRequest.set(Name.getName("authId"), authId);
+        authRequest.set(Name.getName("ipAddress"), ipAddress);
+        if (appName != null) authRequest.set(Name.getName("appName"), appName);
       });
     }
     @Override public String toString() {
@@ -78,7 +78,7 @@ public interface Authorisation {
 
     @Override public Identity getIdentity(Function<Consumer<Request>, Identity> identityProvider, Supplier<String> tokenProvider) {
       String token = tokenProvider.get();
-      return identityProvider.apply(authRequest -> authRequest.set("token", token));
+      return identityProvider.apply(authRequest -> authRequest.set(Name.getName("token"), token));
     }
     @Override public String toString() {
       return "Enterprise using token";
@@ -95,8 +95,8 @@ final class AuthorisationResultParser extends AbstractResultParser<Authorisation
     if (response.name().equals(AUTHORISATION_SUCCESS)) {
       result.authorised = true;
     } else {
-      Element reason = response.getElement("reason");
-      result.error = String.format("%s - %s - %s", reason.getElementAsString("category"), reason.getElementAsString("subcategory"), reason.getElementAsString("message"));
+      Element reason = response.getElement(Name.getName("reason"));
+      result.error = String.format("%s - %s - %s", reason.getElementAsString(Name.getName("category")), reason.getElementAsString(Name.getName("subcategory")), reason.getElementAsString(Name.getName("message")));
     }
   }
 
@@ -119,10 +119,10 @@ final class TokenResultParser extends AbstractResultParser<TokenResultParser.Res
   @Override
   protected void parseResponseNoError(final Element response, final Result result) {
     if (response.name().equals(TOKEN_SUCCESS)) {
-      result.token = response.getElementAsString("token");
+      result.token = response.getElementAsString(Name.getName("token"));
     } else if (response.name().equals(TOKEN_FAILURE)) {
-      Element reason = response.getElement("reason");
-      result.error = String.format("%s - %s - %s", reason.getElementAsString("category"), reason.getElementAsString("subcategory"), reason.getElementAsString("description"));
+      Element reason = response.getElement(Name.getName("reason"));
+      result.error = String.format("%s - %s - %s", reason.getElementAsString(Name.getName("category")), reason.getElementAsString(Name.getName("subcategory")), reason.getElementAsString(Name.getName("description")));
     }
   }
   final class Result extends AbstractRequestResult {

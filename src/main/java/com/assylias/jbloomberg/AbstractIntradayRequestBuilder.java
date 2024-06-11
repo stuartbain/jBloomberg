@@ -5,6 +5,8 @@
 package com.assylias.jbloomberg;
 
 import static com.assylias.jbloomberg.DateUtils.toDatetime;
+
+import com.bloomberglp.blpapi.Name;
 import com.bloomberglp.blpapi.Request;
 import com.google.common.base.Preconditions;
 import java.time.OffsetDateTime;
@@ -50,9 +52,9 @@ abstract class AbstractIntradayRequestBuilder<T extends RequestResult> extends A
 
     @Override
     protected void buildRequest(Request request) {
-        request.set("security", ticker);
-        request.set("startDateTime", toDatetime(startDateTime));
-        request.set("endDateTime", toDatetime(endDateTime));
+        request.set(Name.getName("security"), ticker);
+        request.set(Name.getName("startDateTime"), toDatetime(startDateTime));
+        request.set(Name.getName("endDateTime"), toDatetime(endDateTime));
     }
 
     String getEventType() {

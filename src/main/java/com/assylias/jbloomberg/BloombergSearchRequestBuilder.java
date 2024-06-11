@@ -5,6 +5,7 @@
 package com.assylias.jbloomberg;
 
 import com.bloomberglp.blpapi.Element;
+import com.bloomberglp.blpapi.Name;
 import com.bloomberglp.blpapi.Request;
 
 import static java.util.Objects.requireNonNull;
@@ -61,12 +62,12 @@ public final class BloombergSearchRequestBuilder extends AbstractRequestBuilder<
 
     @Override
     protected void buildRequest(Request request) {
-        request.set("Domain", domain);
+        request.set(Name.getName("Domain"), domain);
         if (limit > 0) {
-            Element overridesElt = request.getElement("Overrides");
+            Element overridesElt = request.getElement(Name.getName("Overrides"));
             Element override = overridesElt.appendElement();
-            override.setElement("name", "LIMIT");
-            override.setElement("value", String.valueOf(limit));
+            override.setElement(Name.getName("name"), "LIMIT");
+            override.setElement(Name.getName("value"), String.valueOf(limit));
         }
     }
 

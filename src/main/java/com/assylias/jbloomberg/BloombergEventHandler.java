@@ -132,15 +132,15 @@ final class BloombergEventHandler implements EventHandler {
                             logger.debug("[{}] id=[{}] {}", type, id, msg);
                             Element msgElement = msg.asElement();
                             Data data = null;
-                            if (msgElement.hasElement("reason")){
-                                Element reason = msg.asElement().getElement("reason");
-                                if (reason.hasElement("errorCode") && reason.hasElement("category") && reason.hasElement("description")) {
-                                    SubscriptionError e = new SubscriptionError(msgType, msg.topicName(), reason.getElementAsInt32("errorCode"),
-                                            reason.getElementAsString("category"), reason.getElementAsString("description"));
+                            if (msgElement.hasElement(Name.getName("reason"))){
+                                Element reason = msg.asElement().getElement(Name.getName("reason"));
+                                if (reason.hasElement( Name.getName("errorCode")) && reason.hasElement(Name.getName("category")) && reason.hasElement(Name.getName("description"))) {
+                                    SubscriptionError e = new SubscriptionError(msgType, String.valueOf(id), reason.getElementAsInt32(Name.getName("errorCode")),
+                                            reason.getElementAsString(Name.getName("category")), reason.getElementAsString(Name.getName("description")));
                                     data = new Data(id, "", e);
                                 }
                             }
-                            if (data == null) data = new Data(id, "", new SubscriptionError(msgType, msg.topicName(), 0, "", msg.toString()));
+                            if (data == null) data = new Data(id, "", new SubscriptionError(msgType, String.valueOf(id), 0, "", msg.toString()));
                             try {
                                 subscriptionDataQueue.put(data);
                             } catch (InterruptedException e) {
